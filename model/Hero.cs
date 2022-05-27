@@ -60,6 +60,11 @@ namespace bot
             return mana >= maxMana;
         }
 
+        public bool isManaEqual3()
+        {
+            return mana == 3;
+        }
+
         public bool isHeroSelfSkill() {
             return HeroIdEnum.SEA_SPIRIT == id;
         }

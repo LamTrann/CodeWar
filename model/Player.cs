@@ -57,6 +57,16 @@ namespace bot
             return false;
         }
 
+        public bool IsFireSpiritManaEqual3()
+        {
+            foreach (var hero in heroes)
+            {
+                if (hero.isAlive() && hero.isManaEqual3() && hero.id == HeroIdEnum.FIRE_SPIRIT) return true;
+            }
+
+            return false;
+        }
+
         public Hero IsSeaSpiritFullMana()
         {
             foreach (var hero in heroes)

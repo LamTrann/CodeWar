@@ -55,7 +55,11 @@ namespace bot
             GemSwapInfo matchGemSizeThanFourForBlueAndBlack = listMatchGem.Where(gemMatch => gemMatch.sizeMatch > 4 && (gemMatch.type == GemType.BLUE || gemMatch.type == GemType.BROWN)).FirstOrDefault();
             GemSwapInfo matchGemSizeThanFourForRedAndPurple = listMatchGem.Where(gemMatch => gemMatch.sizeMatch > 4 && (gemMatch.type == GemType.RED || gemMatch.type == GemType.PURPLE)).FirstOrDefault();
             GemSwapInfo matchGemSizeThanFourForYelloAndGreen = listMatchGem.Where(gemMatch => gemMatch.sizeMatch > 4 && (gemMatch.type == GemType.YELLOW || gemMatch.type == GemType.GREEN)).FirstOrDefault();
-            if (matchGemSizeThanFourForBlueAndBlack != null && botPlayer.seaGodHeroAlive())
+            if (matchGemSizeThanFourForRedAndPurple != null && botPlayer.fireSpiritHeroAlive() && botPlayer.IsFireSpiritManaEqual3())
+            {
+                return matchGemSizeThanFourForRedAndPurple.getIndexSwapGem();
+            }
+            else if (matchGemSizeThanFourForBlueAndBlack != null && botPlayer.seaGodHeroAlive())
             {
                 matchGemSizeThanFourForBlueAndBlack.getIndexSwapGem();
             }
@@ -75,15 +79,19 @@ namespace bot
             GemSwapInfo matchGemSizeThanThreeForBlueAndBlack = listMatchGem.Where(gemMatch => gemMatch.sizeMatch > 3 && (gemMatch.type == GemType.BLUE || gemMatch.type == GemType.BROWN)).FirstOrDefault();
             GemSwapInfo matchGemSizeThanThreeForRedAndPurple = listMatchGem.Where(gemMatch => gemMatch.sizeMatch > 3 && (gemMatch.type == GemType.RED || gemMatch.type == GemType.PURPLE)).FirstOrDefault();
             GemSwapInfo matchGemSizeThanThreeForGreenAndYellow = listMatchGem.Where(gemMatch => gemMatch.sizeMatch > 3 && (gemMatch.type == GemType.YELLOW || gemMatch.type == GemType.GREEN)).FirstOrDefault();
-            if (matchGemSizeThanThreeForBlueAndBlack != null && botPlayer.seaGodHeroAlive() && botPlayer.heroes.Any(x => x.id == HeroIdEnum.CERBERUS && !x.isFullMana()))
+            if (matchGemSizeThanFourForRedAndPurple != null && botPlayer.fireSpiritHeroAlive() && botPlayer.IsFireSpiritManaEqual3())
             {
-                return matchGemSizeThanThreeForBlueAndBlack.getIndexSwapGem();
+                return matchGemSizeThanThreeForRedAndPurple.getIndexSwapGem();
+            }    
+            else if (matchGemSizeThanThreeForBlueAndBlack != null && botPlayer.seaGodHeroAlive())
+            {
+                 return matchGemSizeThanThreeForBlueAndBlack.getIndexSwapGem();
             }
-            else if (matchGemSizeThanFourForRedAndPurple != null && botPlayer.fireSpiritHeroAlive() && botPlayer.heroes.Any(x => x.id == HeroIdEnum.FIRE_SPIRIT))
+            else if (matchGemSizeThanFourForRedAndPurple != null && botPlayer.fireSpiritHeroAlive())
             {
                 return matchGemSizeThanThreeForRedAndPurple.getIndexSwapGem();
             }
-            else if (matchGemSizeThanThreeForGreenAndYellow != null && botPlayer.seaSpiritHeroAlive() && botPlayer.heroes.Any(x => x.id == HeroIdEnum.SEA_SPIRIT))
+            else if (matchGemSizeThanThreeForGreenAndYellow != null && botPlayer.seaSpiritHeroAlive())
             {
                 return matchGemSizeThanThreeForGreenAndYellow.getIndexSwapGem();
             }
@@ -106,16 +114,19 @@ namespace bot
                 GemSwapInfo matchGemForBlueAndBlack = listMatchGem.Where(gemMatch => gemMatch.type == GemType.BLUE || gemMatch.type == GemType.BROWN).FirstOrDefault();
                 GemSwapInfo matchGemForRedAndPurple = listMatchGem.Where(gemMatch => gemMatch.type == GemType.RED || gemMatch.type == GemType.PURPLE).FirstOrDefault();
                 GemSwapInfo matchGemForGreenAndYellow = listMatchGem.Where(gemMatch => gemMatch.type == GemType.GREEN || gemMatch.type == GemType.YELLOW).FirstOrDefault();
-
-                if (matchGemForBlueAndBlack != null && botPlayer.seaGodHeroAlive() && botPlayer.heroes.Any(x => x.id == HeroIdEnum.CERBERUS))
-                {
-                    return matchGemForBlueAndBlack.getIndexSwapGem();
-                }
-                else if (matchGemForRedAndPurple != null && botPlayer.fireSpiritHeroAlive() && botPlayer.heroes.Any(x => x.id == HeroIdEnum.FIRE_SPIRIT))
+                if (matchGemForRedAndPurple != null && botPlayer.fireSpiritHeroAlive() && botPlayer.IsFireSpiritManaEqual3())
                 {
                     return matchGemForRedAndPurple.getIndexSwapGem();
                 }
-                else if (matchGemForGreenAndYellow != null && botPlayer.seaSpiritHeroAlive() && botPlayer.heroes.Any(x => x.id == HeroIdEnum.SEA_SPIRIT))
+                if (matchGemForBlueAndBlack != null && botPlayer.seaGodHeroAlive())
+                {
+                    return matchGemForBlueAndBlack.getIndexSwapGem();
+                }
+                else if (matchGemForRedAndPurple != null && botPlayer.fireSpiritHeroAlive())
+                {
+                    return matchGemForRedAndPurple.getIndexSwapGem();
+                }
+                else if (matchGemForGreenAndYellow != null && botPlayer.seaSpiritHeroAlive())
                 {
                     return matchGemForGreenAndYellow.getIndexSwapGem();
                 }
